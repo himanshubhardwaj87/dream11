@@ -65,8 +65,7 @@ setup_jenkins()
         fi
 		# launch jenkins image
 		cd ${JenkinsHomeWorkspace}
-		docker build -t jenkins11 .
-        export DockerImage=`${DOCKER_CMD} build -t ${JENKINS_IMAGE} `
+                export DockerImage=`${DOCKER_CMD} build -t ${JENKINS_IMAGE} `
         output=$?
 }
 
