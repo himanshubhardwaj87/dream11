@@ -13,8 +13,8 @@ export TERM=xterm
 DisplaY=0
 
 #-- Variables for the script
-MinparaM=2
-MaxparaM=2
+MinparaM=0
+MaxparaM=1
 DisplaY=0
 
 ## GIT Params
