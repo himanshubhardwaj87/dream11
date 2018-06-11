@@ -11,7 +11,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <customWorkspace>/var/jenkins_home/workspace/buildcode/Code/target</customWorkspace>
+  <customWorkspace>/var/jenkins_home/workspace/buildcode/Code</customWorkspace>
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
@@ -19,7 +19,6 @@
 IMAGE=app11
 
 if [[ &quot;$(docker images -q $IMAGE:latest 2&gt; /dev/null)&quot; == &quot;&quot; ]]; then
-  cd Code
   docker build -t $IMAGE .
 fi</command>
     </hudson.tasks.Shell>
@@ -35,7 +34,7 @@ if [ $? -eq 1 ]; then
 else
   /usr/bin/docker rm --force $CONTAINER
 fi
-docker run --name $CONTAINER -d -p &lt;HostPort&gt;:8080 $CONTAINER
+docker run --name $CONTAINER -d -p 9998:8080 $CONTAINER
 </command>
     </hudson.tasks.Shell>
   </builders>
