@@ -1,12 +1,12 @@
-Pre-requisite:
+**Pre-requisite:**
   1. Any linux box (centos or ubuntu)
   2. Docker engine 1.13 or Docker-ce must be installed in VM
   3. Git client should be installed
 
-Setup Environment:
+**Setup Environment:**
   Shell script "launch.sh" is used to launch Jenkins and mysql container. Jenkins is ready to use and two jobs are already available.
   One is for building the code and second is for deploying the jar file to docker container.
-Steps:
+**Steps:**
   1. Take a git checkout in /tmp/ directory
    - Command:
       - cd /tmp/
@@ -17,16 +17,16 @@ Steps:
      - Jenkins container is launched on host port 7772, Mysql container is launched on host port 3306.
      - Jenkins container volume is mapped to host directory "/tmp/dream11/jenkinsdata/jenkins" and mysql container volume is mapped
      to host directory "/tmp/mysqldata" for persistence. 
- One click deployment:
+ **One click deployment:**
      - Now, login the Jenkins using credentials: admin/admin123
      - Poll SCM is configured on build job to build the code and deploy job will build as a downstream project. 
- Steps:
+ **Steps:**
    1. Go to buildcode job and execute build now.
       - APPLICATION URL would be: http://<HOST IP>:9998/
 
-Assumptions and improvements:
+**Assumptions and improvements:**
 
-  *Assumptions:
+  *Assumptions:*
   
     1. Code is failing with 1 unit test so I skipped the unit test execution.
     
@@ -34,7 +34,7 @@ Assumptions and improvements:
     
     3. Whole build process is not covered for this task. Unit test execution, Sonar analysis, uploading artifacts in artifactory are not covered. 
     
-  *Improvements:
+  *Improvements:*
   
     1.	Adding Jfrog artifactory server to save build artifacts e.g. Jar
     
@@ -43,7 +43,7 @@ Assumptions and improvements:
     3.	Deployment can be performed using any configuration management tool such as ansible, puppet.
 
 
-Detailed Steps:
+**Detailed Steps:**
 Steps:
   1. Launch Jenkins container using command
       -DockerFile: 
