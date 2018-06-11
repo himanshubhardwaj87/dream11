@@ -41,7 +41,7 @@ MYSQL_ROOT_PASSWORD="root"
 MYSQL_ROOT_HOST="%"
 MYSQL_DATA="${GIT_CHECKOUT_DIR}mysqldata"
 
-## Function to setup jenkins directory
+## Function to setup jenkins image 
 setup_jenkins()
 {
 	# launch jenkins image
@@ -50,6 +50,7 @@ setup_jenkins()
         output=$?
 }
 
+## Function to check and launch jenkins container
 check_launch_jenkins()
 {
         id=`docker ps --filter "name=${JENKINS_CONTAINER}" | grep -v CREATED | awk '{print $1}' `
@@ -64,6 +65,7 @@ check_launch_jenkins()
 
 }
 
+## Function to setup mysql persistent data storage 
 setup_mysql()
 {
         ## Check mysql Dir and Create If needed
@@ -77,7 +79,7 @@ setup_mysql()
         return 0
 }
 
-
+## Function to check and launch mysql container from official mysql docker hub repo
 check_launch_mysql()
 {
         id=`docker ps --filter "name=${MYSQL_CONTAINER}" | grep -v CREATED | awk '{print $1}' `
@@ -92,6 +94,7 @@ check_launch_mysql()
 
 }
 
+## Function containing steps
 start_setup()
 {
         setup_jenkins
