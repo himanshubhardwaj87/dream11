@@ -46,7 +46,6 @@ setup_jenkins()
 {
 	# launch jenkins image
 	cd jenkinsdata
-	docker build -t jenkins11 .
         export DockerImage=`${DOCKER_CMD} build -t ${JENKINS_IMAGE} .`
         output=$?
 }
