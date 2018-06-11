@@ -22,12 +22,10 @@ GIT_CHECKOUT_DIR="/tmp/"
 GIT_REPO_NAME="dream11"
 
 ##Jenkins Vars
-JenkinsHomeWorkspace="${GIT_CHECKOUT_DIR}dream11/jenkinsdata/"
-JenkinsHome="${GIT_CHECKOUT_DIR}jenkinsdata"
+JenkinsHomeWorkspace="/var/jenkins_home/"
+JenkinsHome="${GIT_CHECKOUT_DIR}dream11/jenkinsdata/jenkins"
 JenkinsUser="admin"
 JenkinsApiToken="de87bd277f1d4ec9b7f15bdfd3b9b472"
-
-JenkinsStatusQuery="/lastBuild/api/xml"
 
 ## Docker Params
 DOCKER_CMD=`which docker`
@@ -35,7 +33,7 @@ JENKINS_IMAGE="jenkins11"
 JENKINS_CONTAINER="jenkins11"
 
 ## mysql Params
-MYSQL_IMAGE="mysql/mysql-server"
+MYSQL_IMAGE="mysql"
 MSYQL_TAG="5.7"
 MYSQL_CONTAINER="mysql11"
 MYSQL_DATABASE="journals"
@@ -46,26 +44,10 @@ MYSQL_DATA="${GIT_CHECKOUT_DIR}mysqldata"
 ## Function to setup jenkins directory
 setup_jenkins()
 {
-        ## Check Jenkins Dir and Create If needed
-        if [[ -d ${JenkinsHomeWorkspace} ]]
-        then
-                export  JenkinsHomeDir="${JenkinsHome}"
-                if [[ -d "${JenkinsHomeDir}/jenkins_home" ]]
-                then
-                        export JenkinsHomeFinal="${JenkinsHomeDir}/jenkins_home"
-                else
-                        `mkdir -p  ${JenkinsHomeDir}`  2>>/dev/null
-                        cp -r ${JenkinsHomeWorkspace} ${JenkinsHomeDir}
-                        output=$?
-                        export JenkinsHomeFinal="${JenkinsHomeDir}/jenkins_home"
-                fi
-        else
-                echo "Missing Base Workspace for Jenkins"
-                exit 0
-        fi
-		# launch jenkins image
-		cd ${JenkinsHomeWorkspace}
-                export DockerImage=`${DOCKER_CMD} build -t ${JENKINS_IMAGE} `
+	# launch jenkins image
+	cd ${JenkinsHomeWorkspace}
+	docker build -t jenkins11 .
+        export DockerImage=`${DOCKER_CMD} build -t ${JENKINS_IMAGE} .`
         output=$?
 }
 
@@ -77,7 +59,7 @@ check_launch_jenkins()
                 echo "Jenkins Container Already Running with ID - ${id}" 0
                 export JenkinsContainerID=${id}
         else
-                export JenkinsContainerID=`${DOCKER_CMD} run --name ${JENKINS_CONTAINER} -d -p 7772:8080 -v /var/run/docker.sock:/var/run/docker.sock -v ${JenkinsHomeFinal}:${JenkinsHomeWorkspace} ${JENKINS_IMAGE} `
+                export JenkinsContainerID=`${DOCKER_CMD} run --name ${JENKINS_CONTAINER} -d -p 7772:8080 -v /var/run/docker.sock:/var/run/docker.sock -v ${JenkinsHome}:${JenkinsHomeWorkspace} ${JENKINS_IMAGE} `
         output=$?
         fi
 
@@ -115,7 +97,7 @@ start_setup()
 {
         setup_jenkins
         check_launch_jenkins
-        setup_mysql
+	setup_mysql
 	check_launch_mysql
 }
 
