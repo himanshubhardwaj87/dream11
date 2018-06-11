@@ -26,12 +26,19 @@ Steps:
 
 Assumptions and improvements:
   *Assumptions:
+  
     1. Code is failing with 1 unit test so I skipped the unit test execution.
+    
     2. Instead of mvn spring-boot:run for build and deploy code in tomcat, I broke them in steps and build the code in first step and deploy the code in docker container.
+    
     3. Whole build process is not covered for this task. Unit test execution, Sonar analysis, uploading artifacts in artifactory are not covered. 
+    
   *Improvements:
+  
     1.	Adding Jfrog artifactory server to save build artifacts e.g. Jar
+    
     2.	Removing Jenkinsdata folder from the git and place in shared location on server for reducing the GIT repo size
+    
     3.	Deployment can be performed using any configuration management tool such as ansible, puppet.
 
 
