@@ -25,6 +25,7 @@ Steps:
       - APPLICATION URL would be: http://<HOST IP>:9998/
 
 Assumptions and improvements:
+
   *Assumptions:
   
     1. Code is failing with 1 unit test so I skipped the unit test execution.
