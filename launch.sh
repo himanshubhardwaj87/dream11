@@ -45,7 +45,7 @@ MYSQL_DATA="${GIT_CHECKOUT_DIR}mysqldata"
 setup_jenkins()
 {
 	# launch jenkins image
-	cd ${JenkinsHomeWorkspace}
+	cd jenkinsdata
 	docker build -t jenkins11 .
         export DockerImage=`${DOCKER_CMD} build -t ${JENKINS_IMAGE} .`
         output=$?
